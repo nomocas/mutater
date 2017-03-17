@@ -47,7 +47,7 @@ describe('mutater', () => {
 		});
 
 		it('keeps untouched inner objects unmodified', () => {
-			expect(obj.a.b).equal(newObj.a.b);
+			expect(obj.b).equal(newObj.b);
 		});
 	});
 
@@ -69,6 +69,45 @@ describe('mutater', () => {
 
 		it('keeps untouched inner objects unmodified', () => {
 			expect(obj.a).equal(newObj.a);
+		});
+	});
+
+	describe('root splice : ', () => {
+
+		const obj = { a:[1,2,3], b:{ c:345 } };
+		const newObj = mutate(obj)
+			.splice('a', 1, 1, 67)
+			.val();
+
+		it('does not modify original object', () => {
+			expect(obj).to.deep.equals({ a: [1,2,3], b:{ c:345 } });
+		});
+
+		it('produces needed object', () => {
+			expect(newObj).to.deep.equals({ a: [1,67,3], b:{ c:345 } });
+		});
+
+		it('keeps untouched inner objects unmodified', () => {
+			expect(obj.b).equal(newObj.b);
+		});
+	});
+	describe('root splice (no addition) : ', () => {
+
+		const obj = { a:[1,2,3], b:{ c:345 } };
+		const newObj = mutate(obj)
+			.splice('a', 1, 1)
+			.val();
+
+		it('does not modify original object', () => {
+			expect(obj).to.deep.equals({ a: [1,2,3], b:{ c:345 } });
+		});
+
+		it('produces needed object', () => {
+			expect(newObj).to.deep.equals({ a: [1,3], b:{ c:345 } });
+		});
+
+		it('keeps untouched inner objects unmodified', () => {
+			expect(obj.b).equal(newObj.b);
 		});
 	});
 });
