@@ -1,6 +1,6 @@
 {
   "name": "mutater",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Mutate a copy of data without changing the original source.",
   "main": "dist/bundles/index.js",
   "module": "dist/bundles/index.mjs",
