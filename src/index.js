@@ -94,7 +94,7 @@ class InnerMutater {
 	 */
 	apply(obj) {
 		const m = new Mutater(obj, false);
-		this._queue.forEach((action) => action.type === 'splice' ? m.splice(action.key, action.index, action.number, action.value) : m[action.type](action.key, action.value));
+		this._queue.forEach((action) => action.type === 'splice' ? m.splice(action.key, action.index, action.number, ...action.value) : m[action.type](action.key, action.value));
 	}
 }
 
