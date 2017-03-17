@@ -1,11 +1,10 @@
 {
   "name": "mutater",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Mutate a copy of data without changing the original source.",
   "main": "dist/bundles/index.js",
   "module": "dist/bundles/index.mjs",
   "jsnext:main": "dist/bundles/index.mjs",
-
   "scripts": {
     "prebuild": "eslint src test",
     "build": "npm run bundles-build && uglifyjs dist/bundles/index.js -m -o dist/bundles/index.min.js",
@@ -17,7 +16,6 @@
     "cover": "cross-env NODE_ENV=test nyc --reporter=lcov --reporter=text mocha test/*.js",
     "prepublish": "npm test"
   },
-
   "nyc": {
     "require": [
       "babel-register"
@@ -25,11 +23,9 @@
     "sourceMap": false,
     "instrument": false
   },
-
-  "keywords":[
+  "keywords": [
     "immutable"
   ],
-  
   "author": "Gilles Coomans",
   "license": "MIT",
   "dependencies": {},
