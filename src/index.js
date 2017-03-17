@@ -54,10 +54,10 @@ class Mutater {
 		this.obj[key].push(value);
 		return this;
 	}
-	splice(key, index, number, value) {
+	splice(key, index, number, ...value) {
 		this.obj[key] = this.obj[key].slice();
 		if (arguments.length === 4)
-			this.obj[key].splice(index, number, value);
+			this.obj[key].splice(index, number, ...value);
 		else
 			this.obj[key].splice(index, number);
 		return this;
@@ -79,7 +79,7 @@ class InnerMutater {
 		this._queue.push({ type: 'from', key: path, value: rule });
 		return this;
 	}
-	splice(key, index, number, value) {
+	splice(key, index, number, ...value) {
 		this._queue.push({ type: 'splice', key, value, index, number });
 		return this;
 	}
