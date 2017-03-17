@@ -110,5 +110,26 @@ describe('mutater', () => {
 			expect(obj.b).equal(newObj.b);
 		});
 	});
+
+	describe('inner splice : ', () => {
+
+		const obj = { a: { d: 12345}, b:{ c:[1,2,3] } };
+		const newObj = mutate(obj)
+			.from('b', mutate.splice('c', 1, 1, 67))
+			.val();
+
+		it('does not modify original object', () => {
+			expect(obj).to.deep.equals({ a: { d: 12345}, b:{ c:[1,2,3] } });
+		});
+
+		it('produces needed object', () => {
+			expect(newObj).to.deep.equals({ a: { d: 12345}, b:{ c:[1,67,3] } });
+		});
+
+		it('keeps untouched inner objects unmodified', () => {
+			expect(obj.a).equal(newObj.a);
+		});
+	});
+
 });
 
