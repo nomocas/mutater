@@ -14,6 +14,7 @@
     "test": "mocha",
     "karma": "karma start",
     "cover": "cross-env NODE_ENV=test nyc --reporter=lcov --reporter=text mocha test/*.js",
+    "coveralls": "npm run cover && cat ./coverage/lcov.info | coveralls",
     "prepublish": "npm test"
   },
   "nyc": {
@@ -54,3 +55,4 @@
     "uglify-js": "^2.7.5"
   }
 }
+
