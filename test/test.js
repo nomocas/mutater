@@ -33,17 +33,17 @@ describe('mutater', () => {
 
 	describe('root toggle : ', () => {
 
-		const obj = { a: true, b:{ c:345 } };
+		const obj = { a: true, b: { c: 345 } };
 		const newObj = mutate(obj)
 			.toggle('a')
 			.val();
 
 		it('does not modify original object', () => {
-			expect(obj).to.deep.equals({ a: true, b:{ c:345 } });
+			expect(obj).to.deep.equals({ a: true, b: { c: 345 } });
 		});
 
 		it('produces needed object', () => {
-			expect(newObj).to.deep.equals({ a: false, b:{ c:345 } });
+			expect(newObj).to.deep.equals({ a: false, b: { c: 345 } });
 		});
 
 		it('keeps untouched inner objects unmodified', () => {
@@ -54,17 +54,17 @@ describe('mutater', () => {
 
 	describe('inner toggle : ', () => {
 
-		const obj = { a: { d: 12345}, b:{ c:true } };
+		const obj = { a: { d: 12345 }, b: { c: true } };
 		const newObj = mutate(obj)
 			.from('b', mutate.toggle('c'))
 			.val();
 
 		it('does not modify original object', () => {
-			expect(obj).to.deep.equals({ a: { d: 12345}, b:{ c:true } });
+			expect(obj).to.deep.equals({ a: { d: 12345 }, b: { c: true } });
 		});
 
 		it('produces needed object', () => {
-			expect(newObj).to.deep.equals({ a: { d: 12345}, b:{ c:false } });
+			expect(newObj).to.deep.equals({ a: { d: 12345 }, b: { c: false } });
 		});
 
 		it('keeps untouched inner objects unmodified', () => {
@@ -74,17 +74,17 @@ describe('mutater', () => {
 
 	describe('root splice : ', () => {
 
-		const obj = { a:[1,2,3], b:{ c:345 } };
+		const obj = { a: [1, 2, 3], b: { c: 345 } };
 		const newObj = mutate(obj)
 			.splice('a', 1, 1, 67)
 			.val();
 
 		it('does not modify original object', () => {
-			expect(obj).to.deep.equals({ a: [1,2,3], b:{ c:345 } });
+			expect(obj).to.deep.equals({ a: [1, 2, 3], b: { c: 345 } });
 		});
 
 		it('produces needed object', () => {
-			expect(newObj).to.deep.equals({ a: [1,67,3], b:{ c:345 } });
+			expect(newObj).to.deep.equals({ a: [1, 67, 3], b: { c: 345 } });
 		});
 
 		it('keeps untouched inner objects unmodified', () => {
@@ -93,17 +93,17 @@ describe('mutater', () => {
 	});
 	describe('root splice (no addition) : ', () => {
 
-		const obj = { a:[1,2,3], b:{ c:345 } };
+		const obj = { a: [1, 2, 3], b: { c: 345 } };
 		const newObj = mutate(obj)
 			.splice('a', 1, 1)
 			.val();
 
 		it('does not modify original object', () => {
-			expect(obj).to.deep.equals({ a: [1,2,3], b:{ c:345 } });
+			expect(obj).to.deep.equals({ a: [1, 2, 3], b: { c: 345 } });
 		});
 
 		it('produces needed object', () => {
-			expect(newObj).to.deep.equals({ a: [1,3], b:{ c:345 } });
+			expect(newObj).to.deep.equals({ a: [1, 3], b: { c: 345 } });
 		});
 
 		it('keeps untouched inner objects unmodified', () => {
@@ -113,17 +113,17 @@ describe('mutater', () => {
 
 	describe('inner splice : ', () => {
 
-		const obj = { a: { d: 12345}, b:{ c:[1,2,3] } };
+		const obj = { a: { d: 12345 }, b: { c: [1, 2, 3] } };
 		const newObj = mutate(obj)
 			.from('b', mutate.splice('c', 1, 1, 67))
 			.val();
 
 		it('does not modify original object', () => {
-			expect(obj).to.deep.equals({ a: { d: 12345}, b:{ c:[1,2,3] } });
+			expect(obj).to.deep.equals({ a: { d: 12345 }, b: { c: [1, 2, 3] } });
 		});
 
 		it('produces needed object', () => {
-			expect(newObj).to.deep.equals({ a: { d: 12345}, b:{ c:[1,67,3] } });
+			expect(newObj).to.deep.equals({ a: { d: 12345 }, b: { c: [1, 67, 3] } });
 		});
 
 		it('keeps untouched inner objects unmodified', () => {
@@ -131,5 +131,39 @@ describe('mutater', () => {
 		});
 	});
 
+	describe('toggleInArray : ', () => {
+
+		const obj = { a: { d: 12345 }, b: [1, 2, 3] };
+		const newObj = mutate(obj).toggleInArray('b', 2).val();
+
+		it('does not modify original object', () => {
+			expect(obj).to.deep.equals({ a: { d: 12345 }, b: [1, 2, 3] });
+		});
+
+		it('produces needed object', () => {
+			expect(newObj).to.deep.equals({ a: { d: 12345 }, b: [1, 3] });
+		});
+
+		it('keeps untouched inner objects unmodified', () => {
+			expect(obj.a).equal(newObj.a);
+		});
+	});
+	describe('mutate(obj, rule) : ', () => {
+
+		const obj = { a: { d: 12345 }, b: [1, 2, 3] };
+		const newObj = mutate(obj, mutate.toggleInArray('b', 2));
+
+		it('does not modify original object', () => {
+			expect(obj).to.deep.equals({ a: { d: 12345 }, b: [1, 2, 3] });
+		});
+
+		it('produces needed object', () => {
+			expect(newObj).to.deep.equals({ a: { d: 12345 }, b: [1, 3] });
+		});
+
+		it('keeps untouched inner objects unmodified', () => {
+			expect(obj.a).equal(newObj.a);
+		});
+	});
 });
 
