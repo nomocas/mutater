@@ -148,6 +148,40 @@ describe('mutater', () => {
 			expect(obj.a).equal(newObj.a);
 		});
 	});
+	describe('toggleInArray (no value first): ', () => {
+
+		const obj = { a: { d: 12345 }, b: [1, 3] };
+		const newObj = mutate(obj).toggleInArray('b', 2).val();
+
+		it('does not modify original object', () => {
+			expect(obj).to.deep.equals({ a: { d: 12345 }, b: [1, 3] });
+		});
+
+		it('produces needed object', () => {
+			expect(newObj).to.deep.equals({ a: { d: 12345 }, b: [1, 3, 2] });
+		});
+
+		it('keeps untouched inner objects unmodified', () => {
+			expect(obj.a).equal(newObj.a);
+		});
+	});
+	describe('merge : ', () => {
+
+		const obj = { a: { d: 12345 }, b: { c: true } };
+		const newObj = mutate(obj).merge('b', { e: 'hello' }).val();
+
+		it('does not modify original object', () => {
+			expect(obj).to.deep.equals({ a: { d: 12345 }, b: { c: true } });
+		});
+
+		it('produces needed object', () => {
+			expect(newObj).to.deep.equals({ a: { d: 12345 }, b: { c: true, e: 'hello' } });
+		});
+
+		it('keeps untouched inner objects unmodified', () => {
+			expect(obj.a).equal(newObj.a);
+		});
+	});
 	describe('mutate(obj, rule) : ', () => {
 
 		const obj = { a: { d: 12345 }, b: [1, 2, 3] };
