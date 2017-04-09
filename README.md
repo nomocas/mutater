@@ -1,6 +1,8 @@
 # Mutater
 
 [![Travis branch](https://img.shields.io/travis/nomocas/mutater/master.svg)](https://travis-ci.org/nomocas/mutater)
+[![bitHound Overall Score](https://www.bithound.io/github/nomocas/mutater/badges/score.svg)](https://www.bithound.io/github/nomocas/mutater)
+[![Coverage Status](https://coveralls.io/repos/github/nomocas/mutater/badge.svg?branch=master)](https://coveralls.io/github/nomocas/mutater?branch=master)
 [![npm](https://img.shields.io/npm/v/mutater.svg)]()
 [![npm-downloads](https://img.shields.io/npm/dm/mutater.svg)]()
 [![licence](https://img.shields.io/npm/l/mutater.svg)](https://spdx.org/licenses/MIT)
