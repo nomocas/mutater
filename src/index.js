@@ -121,7 +121,12 @@ function reconstructPath(obj, path) {
 	return temp;
 }
 
-function mutate(obj) {
+function mutate(obj, rule = undefined) {
+	if (rule) {
+		obj = Array.isArray(obj) ? obj.slice() : Object.assign({}, obj);
+		rule.apply(obj);
+		return obj;
+	}
 	return new Mutater(obj, true);
 }
 
