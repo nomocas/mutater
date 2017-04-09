@@ -10,7 +10,7 @@
  * 		mutate.set('c', 'foo')
  * 		.push('d', 123)
  * 	)
- * 	.delete(e)
+ * 	.delete('e')
  * 	.val()
  *
  *
