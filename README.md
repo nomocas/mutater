@@ -21,6 +21,27 @@ Of course useful with React-style libs (aka (re)render based on dom-diffing).
 
 ## Usage
 
+Immediate mutation (no .val()) :
+
+```javascript
+import mutate from 'mutater';  // or var mutate = require('mutater');
+
+const obj = { a: { b: { c: 'hop', d:[] } }, e:true }
+const newObj = mutate(obj, 
+		mutate.from('a.b',
+			mutate.set('c', 'foo')
+			.push('d', 123)
+		)
+		.delete(e)
+	);
+
+// obj ==  { a: { b: { c: 'hop', d:[] } }, e:true } // the original one
+// newObj ==  { a: { b: { c: 'foo', d:[123] } } }
+
+```
+
+On-demand mutation (using .val()) :
+
 ```javascript
 import mutate from 'mutater';  // or var mutate = require('mutater');
 
