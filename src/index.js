@@ -35,31 +35,40 @@ class Mutater {
 		this.obj[key] = !this.obj[key];
 		return this;
 	}
+	set(key, value) {
+		this.obj[key] = value;
+		return this;
+	}
+	push(key, value) {
+		const arr = this.obj[key];
+		if (!Array.isArray(arr))
+			throw new Error('mutater.push : could not push because not an array : ' + key);
+		this.obj[key] = arr.slice();
+		this.obj[key].push(value);
+		return this;
+	}
+	splice(key, index, number, ...value) {
+		let arr = this.obj[key];
+		if (!Array.isArray(arr))
+			throw new Error('mutater.push : could not push because not an array : ' + key);
+		this.obj[key] = arr = arr.slice();
+		if (arguments.length === 4)
+			arr.splice(index, number, ...value);
+		else
+			arr.splice(index, number);
+		return this;
+	}
 	toggleInArray(key, value) {
-		const arr = this.obj[key] = this.obj[key].slice();
+		let arr = this.obj[key];
+		if (!Array.isArray(arr))
+			throw new Error('mutater.push : could not push because not an array : ' + key);
+		this.obj[key] = arr = arr.slice();
 		for (let i = 0, len = arr.length; i < len; ++i)
 			if (arr[i] === value) {
 				arr.splice(i, 1);
 				return this;
 			}
 		arr.push(value);
-		return this;
-	}
-	set(key, value) {
-		this.obj[key] = value;
-		return this;
-	}
-	push(key, value) {
-		this.obj[key] = this.obj[key].slice();
-		this.obj[key].push(value);
-		return this;
-	}
-	splice(key, index, number, ...value) {
-		this.obj[key] = this.obj[key].slice();
-		if (arguments.length === 4)
-			this.obj[key].splice(index, number, ...value);
-		else
-			this.obj[key].splice(index, number);
 		return this;
 	}
 	merge(key, value) {
