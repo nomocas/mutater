@@ -28,12 +28,12 @@ import mutate from 'mutater';  // or var mutate = require('mutater');
 
 const obj = { a: { b: { c: 'hop', d:[] } }, e:true }
 const newObj = mutate(obj, 
-		mutate.from('a.b',
-			mutate.set('c', 'foo')
-			.push('d', 123)
-		)
-		.delete(e)
-	);
+	mutate.from('a.b',
+		mutate.set('c', 'foo')
+		.push('d', 123)
+	)
+	.delete(e)
+);
 
 // obj ==  { a: { b: { c: 'hop', d:[] } }, e:true } // the original one
 // newObj ==  { a: { b: { c: 'foo', d:[123] } } }
